@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "framework": "astro",
+  "corepack": {
+    "enabled": true,
+    "packageManager": "pnpm@10.x"
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "outputDirectory": "dist"
+}
