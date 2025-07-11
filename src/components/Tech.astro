@@ -1,58 +1,54 @@
 ---
+import {getCollection, type CollectionEntry} from 'astro:content';
+
+const techs = await getCollection('techs');
 ---
 
-<section class="mt-16 mb-16">
-  <h2 class="text-2xl font-semibold text-center mb-8">Tech Skills</h2>
-  
-  <div class="max-w-2xl mx-auto">
-    <div class="grid grid-cols-3 md:grid-cols-4 gap-8 p-6 rounded-xl border-2 border-black bg-white/50 backdrop-blur-sm">
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-html-48.png" alt="HTML" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">HTML</span>
+<section class="techs flex flex-col items-center justify-center min-h-screen">
+  <h2 class="font-semibold text-2xl text-center mb-5"><span class="bg-[#E6BC81]/70 px-1">Tech Stack</span></h2>
+  <div class="grid grid-cols-3 gap-2 sm:gap-3 max-w-[600px] mx-auto border-2 border-black bg-white/30 rounded-md p-2">
+    {techs.map((tech) => (
+      <div class="elemento p-1 sm:p-2 text-center hover:scale-110 transition-transform">
+        <img 
+          src={`${tech.data.imagen}`} 
+          alt={tech.data.nombre}
+          class="w-8 h-8 sm:w-10 sm:h-10 mx-auto"
+        />
+        <p class="text-xs sm:text-sm font-medium">{tech.data.nombre}</p>
       </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-css-48.png" alt="CSS" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">CSS</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-js-48.png" alt="JavaScript" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">JavaScript</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-linux-48.png" alt="Linux" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">Linux</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-react-24.png" alt="React" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">React</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-mecanografiado-48.png" alt="TypeScript" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">TypeScript</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-viento-de-cola-css.svg" alt="Tailwind" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">Tailwind</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-python.svg" alt="Python" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">Python</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-base-de-datos-48.png" alt="SQL" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">SQL</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-figura.svg" alt="Figma" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">Figma</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-astro.svg" alt="Astro" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">Astro</span>
-      </div>
-
-      <div class="flex flex-col items-center gap-2">
-        <img src="/icons8-web-48.png" alt="UX/UI" class="w-12 h-12 hover:scale-110 transition-transform" />
-        <span class="text-sm font-medium">UX/UI</span>
-        </div>
+    ))}
+  </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const tl = gsap.timeline({repeat: -1, repeatDelay: 0.5});
+
+  gsap.from('.techs', {
+    autoAlpha: 1,
+    scale: 0,
+    scrollTrigger: {
+      start: 'top top',
+      scrub:1.5
+    }
+  })
+
+  tl.to(".elemento", {
+    duration: 0.8,
+    scale: 0.9,
+    y: 2,
+    x: -2,
+    yoyo: true,
+    repeat: 1,
+    ease: "power1.inOut",
+    stagger: {
+      amount: 1, // tiempo total que tardará en animar todos los elementos
+      from: "start", // comienza desde el primer elemento
+      grid: [3, 3] // ajusta esto según tu grid (columnas, filas)
+    }
+  })
+</script>
