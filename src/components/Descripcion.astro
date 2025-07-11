@@ -1,0 +1,24 @@
+<div class="descripcion text-center px-4 sm:px-6 md:px-8 lg:px-20 xl:px-76 max-w-7xl mx-auto my-10 z-10">
+    <p class="prose text-base sm:text-lg md:text-xl leading-relaxed">
+        <span class="bg-orange-200/50 px-1">
+            Tengo 20 años de edad. Diseño y programo páginas y sitios web.
+        </span>
+        <br class="mt-1"> <span class=""> A día de hoy estoy estudiando ingeniería en desarrollo de software y quiero llevar tanto mi carrera como mi entorno al siguiente nivel.</span>
+    </p>
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to('.descripcion', {
+        autoAlpha:0,
+        scale: 0.5,
+        scrollTrigger: { // start animation when ".box" enters the viewport
+            start: 'center center',
+            scrub: 1.5,
+        }
+    });
+</script>
