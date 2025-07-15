@@ -27,15 +27,15 @@ const techs = await getCollection('techs');
     gsap.registerPlugin(ScrollTrigger)
 
     gsap.from('.techs', {
-        autoAlpha: 0,
-        scale: 0.8,
+        autoAlpha: 1,
+        scale: 0,
         scrollTrigger: {
             trigger: '.techs',
-            start: 'top center+=100',
-            end: 'center center',
+            start: 'top top+=600', // starts animation 100px before reaching the bottom
+            end: '+=100',
             scrub: 1,
-            // markers: true, // uncomment to debug
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none reverse',
+            //markers: true
         }
     });
 
@@ -43,12 +43,12 @@ const techs = await getCollection('techs');
 
     tl.to(".elemento", {
       duration: 1,
-      scale: 0.9,
+      scale: 0.7,
       yoyo: true,
       repeat: 1,
       ease: "power1.inOut",
       stagger: {
-        amount: 1, // tiempo total que tardará en animar todos los elementos
+        amount: 0.8, // tiempo total que tardará en animar todos los elementos
         from: "random", // comienza desde un elemento aleatorio
         grid: [3, 3] // ajusta esto según tu grid (columnas, filas)
       }

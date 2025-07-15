@@ -49,15 +49,23 @@ const certificados: Certificado[] = [
         <span class="bg-[#E6BC81]/70 px-1">Certificaciones</span>
     </h2>
     
-    <div class="carousel-container w-full max-w-4xl mx-auto overflow-x-hidden">
-        <div class="carousel flex snap-x snap-mandatory overflow-x-auto gap-6 pb-4">
+    <div class="carousel-container relative w-full max-w-4xl mx-auto overflow-x-hidden">
+        <button 
+            class="absolute left-2 top-1/2 -translate-y-1/2 rotate-180 bg-white/80 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center cursor-pointer z-10 hover:bg-gray-400/80 transition-colors" 
+            id="prevBtn"
+        >&rarr;</button>
+        <button 
+            class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center cursor-pointer z-10 hover:bg-gray-400/80 transition-colors" 
+            id="nextBtn"
+        >&rarr;</button>
+        <div class="carousel flex snap-x  overflow-x-auto gap-6 pb-4">
             {certificados.map((cert) => (
                 <div class="snap-center shrink-0 first:ml-[50%] last:mr-[50%]">
                     <a 
                         href={cert.path}
                         target="_blank"
                         rel="noopener noreferrer" 
-                        class="block bg-white/30 rounded-lg shadow-lg border-2 border-black hover:scale-105 transition-transform overflow-hidden"
+                        class="block bg-white/30 rounded-lg shadow-lg border-2 border-black hover:scale-103 transition-transform overflow-hidden"
                     >
                         <img 
                             src={cert.path}
@@ -99,3 +107,29 @@ const certificados: Certificado[] = [
         scrollbar-color: #888 #f1f1f1;
     }
 </style>
+
+<script>
+    const carousel = document.querySelector('.carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    if (carousel) {
+        const cardWidth = 288; // w-72 = 18rem = 288px
+        const gap = 24; // gap-6 = 1.5rem = 24px
+        const scrollAmount = cardWidth + gap;
+
+        prevBtn?.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextBtn?.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    }
+</script>

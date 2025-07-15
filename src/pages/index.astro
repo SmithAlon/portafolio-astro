@@ -1,11 +1,9 @@
 ---
 import Presentacion from '../components/Presentacion.astro';
-import Descripcion from '../components/Descripcion.astro';
 import Tech from '../components/Tech.astro';
 import Portafolio from '../components/Portafolio.astro';
 import Certificados from '../components/Certificados.astro';
 import Creditos from '../components/Creditos.astro';
-import BotonUp from '../components/BotonUp.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -13,12 +11,11 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<div class="justify-center items-center flex flex-col w-full px-4 sm:px-0">
+	<main id="main-content" class="justify-center items-center flex flex-col w-full px-4 sm:px-0">
 		<Presentacion />
 		<Tech />
 		<Portafolio />
 		<Certificados />
 		<Creditos />
-		<BotonUp />
-	</div>
+	</main>
 </Layout>
