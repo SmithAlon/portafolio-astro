@@ -19,27 +19,22 @@
 </button>
 
 <script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
     const boton = document.getElementById('boton-up');
-
+    
     // Show/hide button based on scroll position
-    ScrollTrigger.create({
-        start: '100 top',
-        onEnter: () => gsap.to(boton, { autoAlpha: 1, duration: 0.3 }),
-        onLeaveBack: () => gsap.to(boton, { autoAlpha: 0, duration: 0.3 })
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            boton?.classList.add('!opacity-100', '!visible');
+        } else {
+            boton?.classList.remove('!opacity-100', '!visible');
+        }
     });
 
     // Scroll to top on click
     boton?.addEventListener('click', () => {
-        gsap.to(window, {
-            duration: 1,
-            scrollTo: { y: 0 },
-            ease: 'power2.inOut'
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 </script>

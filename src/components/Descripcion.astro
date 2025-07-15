@@ -7,19 +7,3 @@
         <br class="mt-1"> <span class=""> A día de hoy estoy estudiando ingeniería en desarrollo de software y quiero llevar tanto mi carrera como mi entorno al siguiente nivel.</span>
     </p>
 </div>
-
-<script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to('.descripcion', {
-        autoAlpha:0,
-        scale: 0.5,
-        scrollTrigger: { // start animation when ".box" enters the viewport
-            start: 'center center',
-            scrub: 1.5,
-        }
-    });
-</script>

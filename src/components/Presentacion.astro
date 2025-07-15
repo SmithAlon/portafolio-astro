@@ -1,5 +1,6 @@
 ---
 import Contactos from '../components/Contactos.astro';
+import Descripcion from '../components/Descripcion.astro';
 ---
 
 <div class="alonso flex flex-col text-center mt-16 w-fit">
@@ -12,20 +13,26 @@ import Contactos from '../components/Contactos.astro';
 	<div class="mt-2">
 		<Contactos />
 	</div>
+	<div class=mt-4>
+		<Descripcion />
+	</div>
 </div>
 
 <script>
-	import { gsap } from 'gsap'
-	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+    import { gsap } from 'gsap'
+    import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-	gsap.registerPlugin(ScrollTrigger) 
+    gsap.registerPlugin(ScrollTrigger)
 
-	gsap.to('.alonso', {
-	autoAlpha: 0,
-	scale: 0.5,
-		scrollTrigger: { // start animation when ".box" enters the viewport
-			start: 'center center',
-			scrub: 1.5
-		}
-	});
+    gsap.to('.alonso', {
+        autoAlpha: 1,
+        scale: 0,
+        scrollTrigger: {
+            trigger: '.alonso',
+            start: 'top top',
+            end: '+=500',
+            scrub: 1,
+            // markers: true, // uncomment to debug
+        }
+    });
 </script>
