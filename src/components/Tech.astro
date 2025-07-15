@@ -33,21 +33,20 @@ const techs = await getCollection('techs');
     scale: 0,
     scrollTrigger: {
       start: 'top top',
-      scrub:1.5
+      end: 'bottom center',
+      scrub:1.5,
     }
   })
 
   tl.to(".elemento", {
-    duration: 0.8,
+    duration: 1,
     scale: 0.9,
-    y: 2,
-    x: -2,
     yoyo: true,
     repeat: 1,
     ease: "power1.inOut",
     stagger: {
       amount: 1, // tiempo total que tardará en animar todos los elementos
-      from: "start", // comienza desde el primer elemento
+      from: "random", // comienza desde un elemento aleatorio
       grid: [3, 3] // ajusta esto según tu grid (columnas, filas)
     }
   })

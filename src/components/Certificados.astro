@@ -1,0 +1,101 @@
+---
+interface Certificado {
+    titulo: string;
+    path: string;
+}
+
+const certificados: Certificado[] = [
+    {
+        titulo: "AWS",
+        path: "/AS-certificaciones/aws.png"
+    },
+    {
+        titulo: "Python",
+        path: "/AS-certificaciones/Python.png"
+    },
+    {
+        titulo: "Estructura de datos",
+        path: "/AS-certificaciones/JavaProgramming.png"
+    },
+    {
+        titulo: "Java",
+        path: "/AS-certificaciones/JavaFundamentals.png"
+    },
+    {
+        titulo: "IT Security",
+        path: "/AS-certificaciones/IT-Security.png"
+    },
+    {
+        titulo: "Data Science",
+        path: "/AS-certificaciones/DataScience.png"
+    },
+    {
+        titulo: "SQL",
+        path: "/AS-certificaciones/Database.png"
+    },
+    {
+        titulo: "UX/UI",
+        path: "/AS-certificaciones/UX.png"
+    },
+    {
+        titulo: "Redes",
+        path: "/AS-certificaciones/Redes.png"
+    }
+];
+---
+
+<section class="certificados min-h-screen flex flex-col items-center justify-center py-16">
+    <h2 class="font-semibold text-2xl text-center mb-8">
+        <span class="bg-[#E6BC81]/70 px-1">Certificaciones</span>
+    </h2>
+    
+    <div class="carousel-container w-full max-w-4xl mx-auto overflow-x-hidden">
+        <div class="carousel flex snap-x snap-mandatory overflow-x-auto gap-6 pb-4">
+            {certificados.map((cert) => (
+                <div class="snap-center shrink-0 first:ml-[50%] last:mr-[50%]">
+                    <a 
+                        href={cert.path}
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        class="block bg-white/30 rounded-lg shadow-lg border-2 border-black hover:scale-105 transition-transform overflow-hidden"
+                    >
+                        <img 
+                            src={cert.path}
+                            alt={cert.titulo}
+                            class="w-72 h-48 object-cover"
+                        />
+                        <div class="p-4">
+                            <h3 class="text-center font-medium text-lg">{cert.titulo}</h3>
+                        </div>
+                    </a>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .carousel::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .carousel::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .carousel::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+    .carousel::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    .carousel {
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+    }
+</style>

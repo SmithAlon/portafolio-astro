@@ -1,0 +1,59 @@
+---
+interface Proyecto {
+    imagen: string;
+    nombre: string;
+    link: string;
+    descripcion: string;
+}
+
+const trabajos: Proyecto[] = [
+    {
+        imagen: "FEQMOfoto.png",
+        nombre: "FEQMO",
+        link: "https://feqmo.com/",
+        descripcion: "Landing page dedicada a la empresa de fabricaciones de equipos metálicos y molienda FEQMO. El proyecto fue realizado en Astro y GSAP, partiendo desde un prototipado en Figma."
+    },
+    {
+        imagen: "QuickRSS.png",
+        nombre: "Quick Reading",
+        link: "https://github.com/SmithAlon/QuickReading",
+        descripcion: "Proyecto que favorece principalmente a la lectura de personas con TDA y TDAH, incluso solo para personas que somos distraídas. Ayuda a la atención y agiliza los tiempos de lectura de las personas con un método realmente sencillo."
+    },
+    {
+        imagen: "JuegosSS.png",
+        nombre: "Juegos.com",
+        link: "https://github.com/SmithAlon/frontend-juegos",
+        descripcion: "La entrega final de uno de mis semestres de universidad, más que se un proyecto serio el cual deba monetizar, es un proyecto en el cual pongo en práctica en el menor tiempo posible mis conocimientos acerca de desarrollo web, usando React, Vite, Tailwind y Python, además de una base de datos MongoDB."
+    }
+];
+---
+
+<section class="portfolio min-h-screen flex flex-col items-center justify-center py-16">
+    <h2 class="font-semibold text-2xl text-center mb-4">
+        <span class="bg-[#E6BC81]/70 px-1">Portafolio</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+        {trabajos.map((trabajo) => (
+            <a href={trabajo.link}
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="trabajo bg-white/30 border-2 border-black rounded-lg overflow-hidden hover:scale-105 transition-transform">
+                <img 
+                    src={trabajo.imagen} 
+                    alt={trabajo.nombre} 
+                    class="w-full h-48 object-cover"
+                />
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">
+                        {trabajo.nombre}
+                    </h3>
+                    <p class="text-sm text-gray-700">
+                        {trabajo.descripcion}
+                    </p>
+                </div>
+            </a>
+        ))}
+    </div>
+</section>
+
+
