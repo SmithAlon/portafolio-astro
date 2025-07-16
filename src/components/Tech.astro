@@ -26,24 +26,30 @@ const techs = await getCollection('techs');
 
     gsap.registerPlugin(ScrollTrigger)
 
-    // Asegurarse de que el código se ejecute después de que el DOM esté listo
-    document.addEventListener('DOMContentLoaded', () => {
-        // Entrada de la sección
-        gsap.from('.techs', {
-            autoAlpha: 0, // Cambiado de 1 a 0 para mejor visibilidad
-            scale: 0.8,
-            duration: 1,
-            scrollTrigger: {
-                trigger: '.techs',
-                start: 'top center+=100',
-                end: 'bottom center',
-                scrub: false, // Removido scrub para una animación más consistente
-                toggleActions: 'play none none reverse',
-                once: true // La animación solo ocurre una vez
-            }
-        });
+    // Función para detectar dispositivo móvil
+    const isMobile = () => {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        || window.innerWidth < 768;
+    }
 
-        // Animación de los elementos
+    document.addEventListener('DOMContentLoaded', () => {
+        // Entrada de la sección solo en desktop
+        if (!isMobile()) {
+            gsap.from('.techs', {
+                autoAlpha: 0,
+                scale: 0.8,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.techs',
+                    start: 'top center+=100',
+                    end: 'bottom center',
+                    toggleActions: 'play none none reverse',
+                    once: true
+                }
+            });
+        }
+
+        // Animación pulsante (se mantiene en todos los dispositivos)
         const elementos = gsap.utils.toArray('.elemento');
         
         const tl = gsap.timeline({
