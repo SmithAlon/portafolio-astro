@@ -26,31 +26,50 @@ const techs = await getCollection('techs');
 
     gsap.registerPlugin(ScrollTrigger)
 
-    gsap.from('.techs', {
-        autoAlpha: 1,
-        scale: 0,
-        scrollTrigger: {
-            trigger: '.techs',
-            start: 'top top+=600', // starts animation 100px before reaching the bottom
-            end: '+=100',
-            scrub: 1,
-            toggleActions: 'play none none reverse',
-            //markers: true
-        }
+    // Asegurarse de que el código se ejecute después de que el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+        // Entrada de la sección
+        gsap.from('.techs', {
+            autoAlpha: 0, // Cambiado de 1 a 0 para mejor visibilidad
+            scale: 0.8,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.techs',
+                start: 'top center+=100',
+                end: 'bottom center',
+                scrub: false, // Removido scrub para una animación más consistente
+                toggleActions: 'play none none reverse',
+                once: true // La animación solo ocurre una vez
+            }
+        });
+
+        // Animación de los elementos
+        const elementos = gsap.utils.toArray('.elemento');
+        
+        const tl = gsap.timeline({
+            repeat: -1, 
+            repeatDelay: 1,
+            defaults: {
+                duration: 0.5,
+                ease: "power1.inOut"
+            }
+        });
+
+        tl.to(elementos, {
+            scale: 0.9,
+            stagger: {
+                amount: 0.5,
+                from: "random",
+                grid: "auto",
+            }
+        })
+        .to(elementos, {
+            scale: 1,
+            stagger: {
+                amount: 0.5,
+                from: "random",
+                grid: "auto",
+            }
+        });
     });
-
-    const tl = gsap.timeline({repeat: -1, repeatDelay: 0.5});
-
-    tl.to(".elemento", {
-      duration: 1,
-      scale: 0.7,
-      yoyo: true,
-      repeat: 1,
-      ease: "power1.inOut",
-      stagger: {
-        amount: 0.8, // tiempo total que tardará en animar todos los elementos
-        from: "random", // comienza desde un elemento aleatorio
-        grid: [3, 3] // ajusta esto según tu grid (columnas, filas)
-      }
-    })
 </script>
