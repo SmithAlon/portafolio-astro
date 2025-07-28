@@ -2,21 +2,45 @@
 import {getCollection, type CollectionEntry} from 'astro:content';
 
 const techs = await getCollection('techs');
+
+const methods = ['Scrum', 'Agile', 'CI/CD', 'Kanban'];
 ---
 
 <section class="techs flex flex-col items-center justify-center min-h-screen">
-  <h2 class="font-semibold text-2xl text-center mb-5"><span class="bg-[#E6BC81]/70 px-1">Tech Stack</span></h2>
-  <div class="grid grid-cols-3 gap-2 sm:gap-3 max-w-[600px] mx-auto border-2 border-black bg-white/30 rounded-md p-2">
-    {techs.map((tech) => (
-      <div class="elemento p-1 sm:p-2 text-center hover:scale-110 transition-transform">
-        <img 
-          src={`${tech.data.imagen}`} 
-          alt={tech.data.nombre}
-          class="w-8 h-8 sm:w-10 sm:h-10 mx-auto"
-        />
-        <p class="text-xs sm:text-sm font-medium">{tech.data.nombre}</p>
-      </div>
-    ))}
+  <div class="tech-container h-fit rounded-md p-4 bg-white/60 relative overflow-hidden">
+    <!-- Bordes animados infinitos -->
+    <div class="absolute inset-0">
+      <!-- Borde superior -->
+      <div class="absolute top-0 left-0 w-0 h-1 bg-[#AA2FFF] animate-border-top"></div>
+      <!-- Borde derecho -->
+      <div class="absolute top-0 right-0 w-1 h-0 bg-[#1ea2ca] animate-border-right"></div>
+      <!-- Borde inferior -->
+      <div class="absolute bottom-0 right-0 w-0 h-1 bg-[#66BB6A] animate-border-bottom"></div>
+      <!-- Borde izquierdo -->
+      <div class="absolute bottom-0 left-0 w-1 h-0 bg-[#FFD600] animate-border-left"></div>
+    </div>
+    
+    <h2 class="font-semibold text-2xl text-center mb-5"><span class="bg-[#E6BC81]/70 px-1">Tech Stack</span></h2>
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 max-w-[600px] mx-auto rounded-md p-1">
+      {techs.map((tech) => (
+        <div class="elemento p-1 sm:p-2 text-center hover:scale-110 transition-transform">
+          <img 
+            src={`${tech.data.imagen}`} 
+            alt={tech.data.nombre}
+            class="w-8 h-8 sm:w-10 sm:h-10 mx-auto"
+          />
+          <p class="text-xs sm:text-sm font-medium">{tech.data.nombre}</p>
+        </div>
+      ))}
+    </div>
+    <h2 class="font-semibold text-2xl text-center mt-12 mb-3"><span class="bg-[#E6BC81]/70 px-1">Metodologías</span></h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-[600px] mx-auto rounded-md p-1">
+      {methods.map((method) => (
+        <div class="elemento p-1 sm:p-2 text-center hover:scale-110 transition-transform">
+          <p class="text-md sm:text-sm font-medium">{method}</p>
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -48,34 +72,53 @@ const techs = await getCollection('techs');
                 }
             });
         }
-
-        // Animación pulsante (se mantiene en todos los dispositivos)
-        const elementos = gsap.utils.toArray('.elemento');
-        
-        const tl = gsap.timeline({
-            repeat: -1, 
-            repeatDelay: 1,
-            defaults: {
-                duration: 0.5,
-                ease: "power1.inOut"
-            }
-        });
-
-        tl.to(elementos, {
-            scale: 0.9,
-            stagger: {
-                amount: 0.5,
-                from: "random",
-                grid: "auto",
-            }
-        })
-        .to(elementos, {
-            scale: 1,
-            stagger: {
-                amount: 0.5,
-                from: "random",
-                grid: "auto",
-            }
-        });
     });
 </script>
+
+<style>
+  @keyframes borderLeft {
+    0% { height: 0; }
+    12.5% { height: 100%; }
+    50% { height: 100%; }
+    62.5% { height: 0; }
+    100% { height: 0; }
+  }
+  
+  @keyframes borderTop {
+    0%, 12.5% { width: 0; }
+    25% { width: 100%; }
+    50% { width: 100%; }
+    75% { width: 0; }
+    100% { width: 0; }
+  }
+  
+  @keyframes borderRight {
+    0%, 25% { height: 0; }
+    37.5% { height: 100%; }
+    50% { height: 100%; }
+    87.5% { height: 0; }
+    100% { height: 0; }
+  }
+  
+  @keyframes borderBottom {
+    0%, 37.5% { width: 0; }
+    50% { width: 100%; }
+    100% { width: 0; }
+  }
+  
+  .animate-border-left {
+    animation: borderLeft 6s ease-in-out infinite;
+  }
+  
+  .animate-border-top {
+    animation: borderTop 6s ease-in-out infinite;
+  }
+  
+  .animate-border-right {
+    animation: borderRight 6s ease-in-out infinite;
+  }
+  
+  .animate-border-bottom {
+    animation: borderBottom 6s ease-in-out infinite;
+  }
+</style>

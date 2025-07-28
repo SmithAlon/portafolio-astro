@@ -2,46 +2,69 @@
 interface Certificado {
     titulo: string;
     path: string;
+    imparte: string;
 }
 
 const certificados: Certificado[] = [
     {
         titulo: "AWS",
-        path: "/AS-certificaciones/aws.png"
+        path: "/AS-certificaciones/aws.png",
+        imparte: "AWS Academy"
     },
     {
         titulo: "Python",
-        path: "/AS-certificaciones/Python.png"
+        path: "/AS-certificaciones/Python.png",
+        imparte: "Cisco Networking Academy"
     },
     {
         titulo: "Estructura de datos",
-        path: "/AS-certificaciones/JavaProgramming.png"
+        path: "/AS-certificaciones/JavaProgramming.png",
+        imparte: "Oracle Academy"
     },
     {
         titulo: "Java",
-        path: "/AS-certificaciones/JavaFundamentals.png"
+        path: "/AS-certificaciones/JavaFundamentals.png",
+        imparte: "Oracle Academy"
     },
     {
         titulo: "IT Security",
-        path: "/AS-certificaciones/IT-Security.png"
+        path: "/AS-certificaciones/IT-Security.png",
+        imparte: "LinkedIn Learning"
     },
     {
         titulo: "Data Science",
-        path: "/AS-certificaciones/DataScience.png"
+        path: "/AS-certificaciones/DataScience.png",
+        imparte: "Cisco Networking Academy"
     },
     {
         titulo: "SQL",
-        path: "/AS-certificaciones/Database.png"
+        path: "/AS-certificaciones/Database.png",
+        imparte: "Oracle Academy"
     },
     {
         titulo: "UX/UI",
-        path: "/AS-certificaciones/UX.png"
+        path: "/AS-certificaciones/UX.png",
+        imparte: "SEP"
     },
     {
         titulo: "Redes",
-        path: "/AS-certificaciones/Redes.png"
+        path: "/AS-certificaciones/Redes.png",
+        imparte: "Cisco Networking Academy"
+    },
+    {
+        titulo: "JavaScript Moderno",
+        path: "/AS-certificaciones/JS-certificado.png",
+        imparte: "Midudev"
+    },
+    {
+        titulo: "Figma para Devs",
+        path: "/AS-certificaciones/Figma-certificado.png",
+        imparte: "Midudev"
     }
 ];
+
+// Obtener lista única de quienes imparten
+const impartedores = [...new Set(certificados.map(cert => cert.imparte))];
 ---
 
 <section class="certificados min-h-screen flex flex-col items-center justify-center py-16">
@@ -49,87 +72,87 @@ const certificados: Certificado[] = [
         <span class="bg-[#E6BC81]/70 px-1">Certificaciones</span>
     </h2>
     
-    <div class="carousel-container relative w-full max-w-4xl mx-auto overflow-x-hidden">
+    <!-- Botones de filtro -->
+    <div class="filter-buttons flex flex-wrap justify-center gap-2 mb-8 max-w-4xl">
         <button 
-            class="absolute left-2 top-1/2 -translate-y-1/2 rotate-180 bg-white/80 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center cursor-pointer z-10 hover:bg-gray-400/80 transition-colors" 
-            id="prevBtn"
-        >&rarr;</button>
-        <button 
-            class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center cursor-pointer z-10 hover:bg-gray-400/80 transition-colors" 
-            id="nextBtn"
-        >&rarr;</button>
-        <div class="carousel flex snap-x  overflow-x-auto gap-6 pb-4">
-            {certificados.map((cert) => (
-                <div class="snap-center shrink-0 first:ml-[50%] last:mr-[50%]">
-                    <a 
-                        href={cert.path}
-                        target="_blank"
-                        rel="noopener noreferrer" 
-                        class="block bg-white/30 rounded-lg shadow-lg border-2 border-black hover:scale-103 transition-transform overflow-hidden"
-                    >
-                        <img 
-                            src={cert.path}
-                            alt={cert.titulo}
-                            class="w-72 h-48 object-cover"
-                        />
-                        <div class="p-4">
-                            <h3 class="text-center font-medium text-lg">{cert.titulo}</h3>
-                        </div>
-                    </a>
-                </div>
-            ))}
-        </div>
+            class="filter-btn active bg-[#E6BC81] text-black px-4 py-2 rounded-full border-2 border-black font-medium hover:bg-[#d4a574] transition-colors text-sm"
+            data-filter="all"
+        >
+            Todos
+        </button>
+        {impartedores.map((imparte) => (
+            <button 
+                class="filter-btn bg-white/80 text-black px-4 py-2 rounded-full border-2 border-black font-medium hover:bg-gray-200 transition-colors text-sm"
+                data-filter={imparte}
+            >
+                {imparte}
+            </button>
+        ))}
+    </div>
+
+    <!-- Grid de certificados -->
+    <div class="certificates-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto px-4">
+        {certificados.map((cert) => (
+            <div class="certificate-card" data-imparte={cert.imparte}>
+                <a 
+                    href={cert.path}
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    class="block bg-white/30 rounded-lg shadow-lg border-2 border-black hover:scale-105 transition-transform overflow-hidden"
+                >
+                    <img 
+                        src={cert.path}
+                        alt={cert.titulo}
+                        class="w-full h-32 object-cover"
+                    />
+                    <div class="p-3">
+                        <h4 class="text-center font-medium text-sm mb-1">{cert.titulo}</h4>
+                    </div>
+                </a>
+            </div>
+        ))}
     </div>
 </section>
 
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const certificateCards = document.querySelectorAll('.certificate-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            // Actualizar botón activo
+            filterBtns.forEach(b => {
+                b.classList.remove('active', 'bg-[#E6BC81]');
+                b.classList.add('bg-white/80');
+            });
+            btn.classList.add('active', 'bg-[#E6BC81]');
+            btn.classList.remove('bg-white/80');
+            
+            // Filtrar certificados
+            certificateCards.forEach(card => {
+                const cardImparte = card.getAttribute('data-imparte');
+                const htmlCard = card as HTMLElement;
+                
+                if (filter === 'all' || cardImparte === filter) {
+                    htmlCard.style.display = 'block';
+                    htmlCard.style.animation = 'fadeIn 0.3s ease-in';
+                } else {
+                    htmlCard.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
 <style>
-    .carousel::-webkit-scrollbar {
-        height: 8px;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-
-    .carousel::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-
-    .carousel::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-
-    .carousel::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-
-    .carousel {
-        scroll-behavior: smooth;
-        scrollbar-width: thin;
-        scrollbar-color: #888 #f1f1f1;
+    
+    .filter-btn.active {
+        background-color: #E6BC81 !important;
     }
 </style>
-
-<script>
-    const carousel = document.querySelector('.carousel');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    if (carousel) {
-        const cardWidth = 288; // w-72 = 18rem = 288px
-        const gap = 24; // gap-6 = 1.5rem = 24px
-        const scrollAmount = cardWidth + gap;
-
-        prevBtn?.addEventListener('click', () => {
-            carousel.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-
-        nextBtn?.addEventListener('click', () => {
-            carousel.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-    }
-</script>
